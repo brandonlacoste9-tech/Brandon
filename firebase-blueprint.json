@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Dish": {
+      "title": "Dish",
+      "description": "A single dish in a menu",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["id", "name", "description"]
+    },
+    "Generation": {
+      "title": "Generation",
+      "description": "A set of generated dishes from a menu",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "menuText": { "type": "string" },
+        "photoStyle": { "type": "string" },
+        "cameraAngle": { "type": "string" },
+        "imageSize": { "type": "string" },
+        "dishes": {
+          "type": "array",
+          "items": { "$ref": "Dish" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "menuText", "photoStyle", "imageSize", "dishes", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/generations/{generationId}": {
+      "schema": "Generation",
+      "description": "User's generation history"
+    }
+  }
+}
